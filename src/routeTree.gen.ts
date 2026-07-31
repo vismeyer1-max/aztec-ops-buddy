@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EquipoRouteImport } from './routes/equipo'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProyectoProject_codeRouteImport } from './routes/proyecto.$project_code'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const EquipoRoute = EquipoRouteImport.update({
   path: '/equipo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProyectoProject_codeRoute = ProyectoProject_codeRouteImport.update({
   id: '/proyecto/$project_code',
   path: '/proyecto/$project_code',
@@ -32,30 +38,34 @@ const ProyectoProject_codeRoute = ProyectoProject_codeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/equipo': typeof EquipoRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/proyecto/$project_code': typeof ProyectoProject_codeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/equipo': typeof EquipoRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/proyecto/$project_code': typeof ProyectoProject_codeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/equipo': typeof EquipoRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/proyecto/$project_code': typeof ProyectoProject_codeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/equipo' | '/proyecto/$project_code'
+  fullPaths: '/' | '/equipo' | '/sitemap.xml' | '/proyecto/$project_code'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/equipo' | '/proyecto/$project_code'
-  id: '__root__' | '/' | '/equipo' | '/proyecto/$project_code'
+  to: '/' | '/equipo' | '/sitemap.xml' | '/proyecto/$project_code'
+  id: '__root__' | '/' | '/equipo' | '/sitemap.xml' | '/proyecto/$project_code'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EquipoRoute: typeof EquipoRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProyectoProject_codeRoute: typeof ProyectoProject_codeRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EquipoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/proyecto/$project_code': {
       id: '/proyecto/$project_code'
       path: '/proyecto/$project_code'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EquipoRoute: EquipoRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProyectoProject_codeRoute: ProyectoProject_codeRoute,
 }
 export const routeTree = rootRouteImport
