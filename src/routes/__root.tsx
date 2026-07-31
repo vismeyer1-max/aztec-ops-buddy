@@ -79,14 +79,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Aztec Ops — Gestión operativa de proyectos" },
+      { title: "Panel operativo — Aztec Ops" },
       {
         name: "description",
         content:
-          "Sistema interno de gestión operativa: salud, priorización y carga del equipo en una sola pantalla.",
+          "Panel operativo diario: qué está bloqueado, qué está en riesgo y a qué dedicar el día en el portafolio de proyectos de automatización con IA.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Panel operativo — Aztec Ops" },
+      { name: "twitter:title", content: "Panel operativo — Aztec Ops" },
+      { property: "og:description", content: "Panel operativo diario: qué está bloqueado, qué está en riesgo y a qué dedicar el día en el portafolio de proyectos de automatización con IA." },
+      { name: "twitter:description", content: "Panel operativo diario: qué está bloqueado, qué está en riesgo y a qué dedicar el día en el portafolio de proyectos de automatización con IA." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e1ef69a8-187c-4553-aeaf-64eeda7e9c26/id-preview-1f3d0f84--b56101f8-b727-4eef-9b66-8dd8c4fc30b0.lovable.app-1785500779366.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e1ef69a8-187c-4553-aeaf-64eeda7e9c26/id-preview-1f3d0f84--b56101f8-b727-4eef-9b66-8dd8c4fc30b0.lovable.app-1785500779366.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

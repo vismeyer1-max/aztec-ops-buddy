@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Panel operativo — Aztec Ops" },
       {
         property: "og:description",
-        content: "Priorización diaria del portafolio: salud, score y siguiente paso de cada proyecto.",
+        content: "Panel operativo diario: qué está bloqueado, qué está en riesgo y a qué dedicar el día en el portafolio de proyectos de automatización con IA.",
       },
     ],
   }),
