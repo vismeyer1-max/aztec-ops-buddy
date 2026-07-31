@@ -14,7 +14,152 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      projects: {
+        Row: {
+          blockers: string | null
+          business_value: number | null
+          client: string | null
+          created_at: string
+          currency: string | null
+          engagement_type: string
+          id: string
+          name: string
+          next_step: string | null
+          notes: string | null
+          owner: string | null
+          owner_role: string | null
+          priority: string | null
+          project_code: string
+          project_type_api: string | null
+          stage: string | null
+          start_date: string | null
+          status: string
+          target_date: string | null
+          updated_at: string
+        }
+        Insert: {
+          blockers?: string | null
+          business_value?: number | null
+          client?: string | null
+          created_at?: string
+          currency?: string | null
+          engagement_type: string
+          id?: string
+          name: string
+          next_step?: string | null
+          notes?: string | null
+          owner?: string | null
+          owner_role?: string | null
+          priority?: string | null
+          project_code: string
+          project_type_api?: string | null
+          stage?: string | null
+          start_date?: string | null
+          status?: string
+          target_date?: string | null
+          updated_at?: string
+        }
+        Update: {
+          blockers?: string | null
+          business_value?: number | null
+          client?: string | null
+          created_at?: string
+          currency?: string | null
+          engagement_type?: string
+          id?: string
+          name?: string
+          next_step?: string | null
+          notes?: string | null
+          owner?: string | null
+          owner_role?: string | null
+          priority?: string | null
+          project_code?: string
+          project_type_api?: string | null
+          stage?: string | null
+          start_date?: string | null
+          status?: string
+          target_date?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          assignee: string | null
+          created_at: string
+          dependency: string | null
+          detail: string | null
+          due_date: string | null
+          id: string
+          priority: string | null
+          project_code: string
+          status: string | null
+          task_code: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assignee?: string | null
+          created_at?: string
+          dependency?: string | null
+          detail?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string | null
+          project_code: string
+          status?: string | null
+          task_code: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assignee?: string | null
+          created_at?: string
+          dependency?: string | null
+          detail?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string | null
+          project_code?: string
+          status?: string | null
+          task_code?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_project_code_fkey"
+            columns: ["project_code"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["project_code"]
+          },
+        ]
+      }
+      team_members: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          role: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          role?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          role?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
