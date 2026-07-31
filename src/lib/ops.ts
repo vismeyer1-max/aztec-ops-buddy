@@ -161,6 +161,20 @@ export function diagnosticar(p: Project, tasksProyecto: Task[], hoy: string = ho
   const bloqueadas = abiertas.filter((t) => t.status === "Bloqueada");
   const tieneBlockers = !!p.blockers && p.blockers.trim() !== "";
 
+  // Señales de urgencia: se muestran siempre, aunque el proyecto ya esté bloqueado,
+  // para que el panel no esconda el vencimiento detrás del bloqueo.
+  const señales: string[] = [];
+  if (vencidas.length > 0)
+    señales.push(vencidas.length === 1 ? "1 tarea vencida" : `${vencidas.length} tareas vencidas`);
+  if (p.target_date && p.target_date < hoy && p.status === "Activo") {
+    señales.push(`Fecha límite vencida hace ${Math.abs(diasHasta(p.target_date, hoy)!)} días`);
+  }
+  // Un servicio continuo no exige fecha límite: su cadencia se vigila por tareas.
+  if (!p.target_date && p.engagement_type !== "Mantenimiento o recurrente") {
+    señales.push("Sin fecha límite definida");
+  }
+  if (abiertas.length === 0 && p.status === "Activo") señales.push("Sin tareas abiertas");
+
   const razones: string[] = [];
   let salud: Salud;
 
@@ -169,26 +183,14 @@ export function diagnosticar(p: Project, tasksProyecto: Task[], hoy: string = ho
     if (tieneBlockers) razones.push("Dependencia externa registrada");
     if (bloqueadas.length === 1) razones.push("1 tarea bloqueada");
     else if (bloqueadas.length > 1) razones.push(`${bloqueadas.length} tareas bloqueadas`);
+    razones.push(...señales);
+  } else if (señales.length > 0) {
+    salud = "En riesgo";
+    razones.push(...señales);
   } else {
-    const enRiesgo: string[] = [];
-    if (vencidas.length > 0)
-      enRiesgo.push(vencidas.length === 1 ? "1 tarea vencida" : `${vencidas.length} tareas vencidas`);
-    if (p.target_date && p.target_date < hoy && p.status === "Activo") {
-      enRiesgo.push(`Fecha límite vencida hace ${Math.abs(diasHasta(p.target_date, hoy)!)} días`);
-    }
-    // Un servicio continuo no exige fecha límite: su cadencia se vigila por tareas.
-    if (!p.target_date && p.engagement_type !== "Mantenimiento o recurrente") {
-      enRiesgo.push("Sin fecha límite definida");
-    }
-    if (abiertas.length === 0 && p.status === "Activo") enRiesgo.push("Sin tareas abiertas");
-
-    if (enRiesgo.length > 0) {
-      salud = "En riesgo";
-      razones.push(...enRiesgo);
-    } else {
-      salud = "Sano";
-    }
+    salud = "Sano";
   }
+
 
   const noBloqueadasAbiertas = abiertas.filter((t) => t.status !== "Bloqueada");
   const nextManual = p.next_step && p.next_step.trim() !== "" ? p.next_step.trim() : null;
