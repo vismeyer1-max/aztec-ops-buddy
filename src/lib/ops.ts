@@ -91,8 +91,10 @@ export function fmtFecha(iso: string | null): string {
   if (!iso) return "—";
   return aFechaLocal(iso)
     .toLocaleDateString("es-CO", { day: "numeric", month: "short", year: "numeric" })
-    .replace(/\./g, "");
+    .replace(/\./g, "")
+    .replace(/ de /g, " ");
 }
+
 
 export function etiquetaVencimiento(iso: string | null, hoy: string = hoyISO()): string {
   const d = diasHasta(iso, hoy);
